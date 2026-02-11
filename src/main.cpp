@@ -44,9 +44,7 @@ int main() {
             auto v = GeneUtils::randomVectorInt(SIZE_VECTOR);
             int k = 5;
             pool.addTask(
-                [v, k, &mtx_io, &count]() -> void { 
-                    task(v, mtx_io, count); 
-                });
+                [v, k, &mtx_io, &count]() -> void { task(v, mtx_io, count); });
         }
     }
 
