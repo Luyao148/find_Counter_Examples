@@ -13,9 +13,10 @@ class FileWrite {
     FileWrite(const std::string& _file_name);
 
     FileWrite(const FileWrite&) = delete;
-    FileWrite(const FileWrite&&) = delete;
-    FileWrite operator=(const FileWrite&) = delete;
-    FileWrite operator=(const FileWrite&&) = delete;
+    FileWrite& operator=(const FileWrite&) = delete;
+
+    FileWrite(FileWrite&&) = delete;
+    FileWrite operator=(FileWrite&&) = delete;
 
     void writeData(const std::string& _s);
 
