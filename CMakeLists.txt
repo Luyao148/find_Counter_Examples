@@ -5,7 +5,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include_directories(include)
 
-add_library(GeneUtils STATIC lib/GeneUtils.cpp lib/ThreadPool.cpp)
+add_library(GeneUtils STATIC 
+    lib/GeneUtils.cpp 
+    lib/ThreadPool.cpp
+    lib/FileWrite.cpp
+)
 
 add_executable(main src/main.cpp src/Solution.cpp)
 
