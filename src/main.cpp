@@ -9,14 +9,14 @@
 #include <sstream>
 #include <vector>
 
-constexpr int SAMPLE_NUMS = 1000;
+constexpr int SAMPLE_NUMS = 100;
 constexpr std::size_t SIZE_VECTOR = 20;
 
 void task(
-    std::vector<int> nums,
     std::atomic_int &count,
     FileWrite *fw) 
 {
+    auto nums = GeneUtils::randomVectorInt(SIZE_VECTOR);
     auto num1(nums);
     auto res = Solution().stdSolution(num1);
     auto num2(nums);
@@ -42,18 +42,14 @@ int main() {
 
     GeneUtils::setRange(0, 20);
 
-    // io
     auto fw = FileWrite::getFileWritrHandle();
     std::atomic_int count = 0;
 
     {
         ThreadPool pool(8);
-
         for (int i = 0; i < SAMPLE_NUMS; ++i) {
-            auto v = GeneUtils::randomVectorInt(SIZE_VECTOR);
-            int k = 5;
-            pool.addTask([v, k, &count, &fw]() -> void {
-                task(v, count, fw.get());
+            pool.addTask([&count, &fw]() -> void {
+                task(count, fw.get());
             });
         }
     }
