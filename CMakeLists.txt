@@ -9,6 +9,7 @@ add_library(GeneUtils STATIC
     lib/GeneUtils.cpp 
     lib/ThreadPool.cpp
     lib/FileWrite.cpp
+    lib/ListNode.cpp
 )
 
 add_executable(main src/main.cpp src/Solution.cpp)

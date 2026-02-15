@@ -2,6 +2,7 @@
 #include <random>
 #include <utility>
 #include <vector>
+#include "ListNode.h"
 
 namespace GeneUtils{
     namespace details {
@@ -19,5 +20,7 @@ namespace GeneUtils{
     std::vector<int> randomVectorInt(size_t size);
 
     std::vector<int> randomVectorIntNoRept(size_t size);
+
+    List randomList(size_t size);
     
 }

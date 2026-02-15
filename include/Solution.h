@@ -1,10 +1,13 @@
 #include <vector>
+#include "ListNode.h"
 
 using namespace std;
 
 class Solution{
 public:
-    int mySolution(vector<int>& nums);
+    void mySolution(ListNode* head);
+    void stdSolution(ListNode* head);
 
-    int stdSolution(vector<int>& nums);
+    int mySolution_vectorInt(vector<int>& nums);
+    int stdSolution_vectorInt(vector<int>& nums);
 };

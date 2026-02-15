@@ -2,7 +2,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-int Solution::mySolution(vector<int> &nums) {
+int Solution::mySolution_vectorInt(vector<int> &nums) {
     unordered_map<int, int> um;
     int res = 0;
     for (auto &num : nums) {
@@ -18,7 +18,7 @@ int Solution::mySolution(vector<int> &nums) {
     return res;
 }
 
-int Solution::stdSolution(vector<int> &nums) {
+int Solution::stdSolution_vectorInt(vector<int> &nums) {
     unordered_set<int> us;
     for (const auto &num : nums) {
         us.insert(num);
@@ -38,4 +38,18 @@ int Solution::stdSolution(vector<int> &nums) {
     }
 
     return res;
+}
+
+void Solution::mySolution(ListNode* head){
+    auto p = new ListNode(99);
+    auto next = head->next;
+    head->next=p;
+    p->next = next;
+}
+
+void Solution::stdSolution(ListNode* head){
+    auto p = new ListNode(101);
+    auto next = head->next;
+    head->next=p;
+    p->next = next;
 }

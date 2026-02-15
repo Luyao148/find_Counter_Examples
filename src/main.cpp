@@ -7,39 +7,43 @@
 #include <iomanip>
 #include <iostream>
 #include <sstream>
-#include <vector>
 
-constexpr int SAMPLE_NUMS = 100;
+constexpr int SAMPLE_NUMS = 10;
 constexpr std::size_t SIZE_VECTOR = 20;
 
 void task(
     std::atomic_int &count,
     FileWrite *fw) 
 {
-    auto nums = GeneUtils::randomVectorInt(SIZE_VECTOR);
-    auto num1(nums);
-    auto res = Solution().stdSolution(num1);
-    auto num2(nums);
-    auto check = Solution().mySolution(num2);
+    auto l = GeneUtils::randomList(SIZE_VECTOR);
+    auto l1(l);
+    Solution().stdSolution(l1.getHead());
+    auto l2(l);
+    Solution().mySolution(l2.getHead());
 
-    std::string s{"Sample: "};
+    std::string s{};
     ostringstream oss(s);
-    for (const auto &i : nums) {
-        oss << setw(3) << i << " ";
+    oss << "Sample: \n";
+
+    auto p=l1.getHead();
+    while(p){
+        oss << setw(6) << p->val;
+        p=p->next;
     }
-    oss << "Result: ";
-    if (res == check) {
-        ++count;
-        oss << setw(6) << res << "\n";
-    } else {
-        oss << "    stdSolution = " << res << ";"
-            << "mySolution  = " << check << "\n";
+    oss << "\n";
+    p=l2.getHead();
+    while(p){
+        oss << setw(6) << p->val;
+        p=p->next;
     }
+    oss << "\n";
+
     fw->writeData(oss.str());
+
 }
 
 int main() {
-
+    
     GeneUtils::setRange(0, 20);
 
     auto fw = FileWrite::getFileWritrHandle();
@@ -54,11 +58,11 @@ int main() {
         }
     }
 
-    std::string sum{};
-    ostringstream oss(sum);
-    oss << count << "/" << SAMPLE_NUMS;
-    fw->writeData(oss.str());
-    std::cout << oss.str() << std::endl;
+    // std::string sum{};
+    // ostringstream oss(sum);
+    // oss << count << "/" << SAMPLE_NUMS;
+    // fw->writeData(oss.str());
+    // std::cout << oss.str() << std::endl;
 
     return 0;
 }

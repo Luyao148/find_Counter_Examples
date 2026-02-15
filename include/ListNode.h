@@ -1,3 +1,8 @@
+#pragma once
+#include <vector>
+#include <unordered_set>
+#include <memory>
+
 constexpr int NODE_DEFAULT_VAL = 0;
 
 struct ListNode{
@@ -7,4 +12,19 @@ struct ListNode{
     ListNode():val(NODE_DEFAULT_VAL),next(nullptr){}
     ListNode(int _val,ListNode* _next=nullptr):val(_val),next(_next){}
     ListNode(const ListNode&) = delete;
+    ListNode(ListNode&&) = default;
+};
+
+class List {
+  public:
+    List(const std::vector<int>& v);
+    List(const List& rhs):List(rhs.oriVec){}
+    List(List&& rhs) noexcept = default;
+    ~List();
+
+    ListNode *getHead();
+  private:
+    ListNode dummy;
+    std::unordered_set<std::unique_ptr<ListNode>> nodes;
+    std::vector<int> oriVec;
 };

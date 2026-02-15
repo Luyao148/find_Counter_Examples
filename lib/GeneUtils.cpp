@@ -1,7 +1,9 @@
 #include "GeneUtils.h"
 #include <cassert>
+#include <cstddef>
 #include <random>
 #include <unordered_set>
+#include <vector>
 
 using uniIntDis = std::uniform_int_distribution<int>;
 
@@ -40,4 +42,12 @@ std::vector<int> GeneUtils::randomVectorIntNoRept(size_t size){
         us.insert(t);
     }
     return ret;
+}
+
+List GeneUtils::randomList(size_t size){
+    std::vector<int> v{};
+    for(size_t i=0;i<size;++i){
+        v.push_back(randomInt());
+    }
+    return List(std::move(v));
 }
