@@ -48,8 +48,10 @@ void Solution::mySolution(ListNode* head){
 }
 
 void Solution::stdSolution(ListNode* head){
-    auto p = new ListNode(101);
-    auto next = head->next;
-    head->next=p;
-    p->next = next;
+    head->next = head->next->next;
+    auto p = head;
+    while(p->next){
+        p=p->next;
+    }
+    p->next=head->next->next;
 }

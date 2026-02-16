@@ -1,13 +1,12 @@
 #include "ListNode.h"
 #include <memory>
-#include <unordered_set>
 
 List::List(const std::vector<int>& v):dummy(),oriVec(v){
     auto ptr=&dummy;
     for(const auto&e:v){
         auto p = std::make_unique<ListNode>(e);
         ptr->next=p.get();
-        nodes.insert(std::move(p));
+        nodes.emplace_back(std::move(p));
         ptr=ptr->next;
     }
 }
@@ -17,16 +16,42 @@ ListNode *List::getHead() {
 }
 
 List::~List(){
-    std::unordered_set<ListNode*> nodesNow;
-    auto ptr = getHead();
-    while(ptr){
-        nodesNow.insert(ptr);
-        ptr=ptr->next;
+    auto p = getHead();
+    auto pFast(p);
+    auto pSlow(p);
+    while(pFast){
+        pFast=pFast->next;
+        if(pFast==nullptr) break;
+        pFast=pFast->next;
+        pSlow=pSlow->next; 
+        if(pFast==pSlow) break;
     }
-    for(const auto& i:nodes){
-        nodesNow.erase(i.get());
+    if(pFast){
+        // has circle
+        while(p!=pSlow){
+            p=p->next;
+            pSlow=pSlow->next;
+        }
+        while(pSlow->next!=p){
+            pSlow=pSlow->next;
+        }
+        pSlow->next=nullptr;
     }
-    for(auto i:nodesNow){
-        nodes.insert(std::unique_ptr<ListNode>(i));
+    p=dummy.next;
+    while(p){
+        bool flag = true;
+        for(const auto& node:nodes){
+            if(node.get()==p){
+                flag = false;
+                break;
+            }
+        }
+        if(flag){
+            auto t(p->next);
+            delete p;
+            p=t;
+        }else{
+            p=p->next;
+        }
     }
 }
